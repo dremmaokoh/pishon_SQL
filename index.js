@@ -1,6 +1,7 @@
 // Importing our packages
 const express = require("express");
 const cors = require("cors");
+const ejs = require("ejs");
 const server = express();
 const morgan = require("morgan");
 const passport = require("passport");
@@ -34,6 +35,8 @@ server.use(cors());
 server.use(cookieparser());
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
+server.set("view engine", "ejs");
+server.use(express.static(path.join(__dirname, "views")));
 
 server.use(
   session({
