@@ -310,59 +310,70 @@ exports.verifyEmail = async (req, res, next) => {
     }
   };
   
-  // exports.findUser = async (req, res, next) => {
-  //   try {
+  exports.findUser = async (req, res, next) => {
+    try {
       
-  //     const id = req.params.id;
-  //     const find_user = await User.findById({ _id: id });
-  //     const user_find = {
-  //       message: "User Found",
-  //       find_user,
-  //     };
-  //     return res.status(200).json(user_find);
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // };
+      const id = req.params.id;
+      const find_user = await User.findOne({ where:  {id: id} });
+      const user_find = {
+        message: "User Found",
+        find_user,
+      };
+      return res.status(200).json(user_find);
+    } catch (error) {
+      next(error);
+    }
+  };
 
-  // exports.findUsers = async (req, res
-  //   ) => {
-  //     try {
-  //       let { page, size, sort } = req.query;
-    
-        
-  //       if (!page) {
-  //         page = 1;
-  //       }
-    
-  //       if (!size) {
-  //         size = 10;
-  //       }
-  //       const limit = parseInt(size);
-  //       const users = await Client.find().sort(
-  //         {  _id: 1 }).limit(limit)
-    
-  //       res.send({
-  //         page,
-  //         size,
-  //         Info: users,
-  //       });
-  //     }
-  //     catch (error) {
-  //       res.sendStatus(500);
-  //     }
-      
-  //   };
-
-  // exports.logOut = async (req, res) => {
-  //   res.clearCookie("access_token");
-  //   const logout = {
-  //     message: "Logout Successful",
-  //   };
-  //   return res.status(201).json(logout);
-  // };
   
- 
+      exports.findUsers = async (req, res) => {
+        try {
+          const allUsers = await User.findAll({
+            where: { isVerified: 'true' },
+            order: [['createdAt', 'DESC']],
+          });
+          return res.status(200).json({count: allUsers.length, allUsers });
+        } catch (error) {
+          return res.status(500).send({ message: error });
+        }
+      };
+
+    exports.updateUser = async (req, res, next) => {
+      const id = req.params.id
+      try {
+      
+        const {first_name,
+          last_name,
+         username,
+          phone_number} =
+          req.body;
+        const user = await User.findOne({ where: { id: id } });
+        if (!user) {
+          return res.status(404).json({ message: 'User not found' });
+        }
+        const update_User = await user.update({
+          first_name,
+          last_name,
+         username,
+          phone_number
+        });
+        return res.status(200).json({ update_User });
+      } catch (error) {
+        return res.status(500).send({  message : error.message });
+      }
+    };
+
+  
+
+  exports.logOut = async (req, res) => {
+    res.clearCookie("access_token");
+    req.session.destroy();
+    const logout = {
+      message: "Logout Successful",
+    };
+    return res.status(201).json(logout);
+  };
+  
   
   
    

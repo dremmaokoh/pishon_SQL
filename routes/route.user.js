@@ -6,6 +6,7 @@ const {
   forgotPassword,
   resetPassword,
   resetPasswordpage,
+  updateUser,
   findUsers,
   findUser,
   logOut,
@@ -18,11 +19,10 @@ router.get("/verify-email", verifyEmail);
 router.post("/forgotpassword", validateVerified, forgotPassword);
 router.post("/resetpassword/:id/:token", resetPassword);
 router.get("/resetpassword/:id/:token", resetPasswordpage);
-
-// router.get("/viewProfiles", findUsers);
-// router.get("/viewProfile/:id", findUser);
-
-// router.get("/logout", isAuth, logOut);
+router.put("/editProfile/:id",isAuth, updateUser);
+router.get("/viewProfiles", findUsers);
+router.get("/viewProfile/:id", findUser);
+router.get("/logout", isAuth, logOut);
 
 module.exports = router;
 
