@@ -9,18 +9,22 @@ module.exports = (sequelize, Sequelize) => {
 
     firstName: {
       type: Sequelize.STRING,
+      allowNull: false
     },
     lastName: {
       type: Sequelize.STRING,
+      allowNull: false
     },
     phoneNumber: {
       type: Sequelize.STRING,
     },
     email: {
       type: Sequelize.STRING,
+      allowNull: false
     },
     message: {
       type: Sequelize.STRING,
+      allowNull: false
     },
 
   }) 

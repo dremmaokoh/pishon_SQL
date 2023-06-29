@@ -17,6 +17,21 @@ db.sequelize = sequelize;
 
 db.user = require("./user.model")(sequelize, Sequelize);
 db.contact = require("./model.contactUs")(sequelize, Sequelize);
+db.property = require("./model.property")(sequelize, Sequelize);
+ z
+db.user.hasMany(db.property, { as: 'propertys' });
+db.property.belongsTo(db.user, {
+  foreignKey: 'owner_id',
+  as: 'owner',
+});
+
+// User-Contact Us 1 to many relationship
+db.user.hasOne(db.contact, {as:'contacts'});
+db.contact.belongsTo(db.user,{foreignKey:"userId",as:"user"});
+
+
+
+
 
 
 module.exports = db;

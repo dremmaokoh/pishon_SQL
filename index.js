@@ -9,8 +9,10 @@ require("dotenv").config();
 const path = require("path");
 const db = require("./models/index");
 const user_router = require("./routes/route.user");
-const authRoutes = require("./routes/route.auth");
+const auth_router = require("./routes/route.auth");
 const contact_router = require("./routes/route.contactUs.js");
+const admin_router = require("./routes/route.contactUs.js");
+
 const cookieparser = require("cookie-parser");
 const session = require("express-session");
 
@@ -56,8 +58,9 @@ server.get("/", (req, res) => {
   res.send('<a href="/auth/google">Authenticate with Google</a>');
 });
 server.use("/api", user_router);
-server.use("/api/v1", contact_router);
-server.use("/auth", authRoutes);
+server.use("/api/v1", admin_router);
+server.use("/api/v2", contact_router);
+server.use("/auth", auth_router);
 
 //Listening to server
 server.listen(port, () => {

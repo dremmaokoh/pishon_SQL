@@ -36,9 +36,14 @@ module.exports = (sequelize, Sequelize) => {
     isVerified: {
       type: Sequelize.STRING,
       enumerable: ["true", "false"],
-      defaultValue: "false",
+      defaultValue: "false"  },
 
-    },
+      role: {
+        type: Sequelize.STRING,
+        enumerable: ['user', 'admin'],
+        defaultValue: 'user',
+        allowNull: true
+      },
   });
 
   return User;

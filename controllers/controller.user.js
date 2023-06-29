@@ -309,61 +309,32 @@ exports.verifyEmail = async (req, res, next) => {
       next(error);
     }
   };
-  
-  exports.findUser = async (req, res, next) => {
+ 
+  exports.updateUser = async (req, res, next) => {
+    const id = req.params.id
     try {
-      
-      const id = req.params.id;
-      const find_user = await User.findOne({ where:  {id: id} });
-      const user_find = {
-        message: "User Found",
-        find_user,
-      };
-      return res.status(200).json(user_find);
+    
+      const {first_name,
+        last_name,
+       username,
+        phone_number} =
+        req.body;
+      const user = await User.findOne({ where: { id: id } });
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+      const update_User = await user.update({
+        first_name,
+        last_name,
+       username,
+        phone_number
+      });
+      return res.status(200).json({ update_User });
     } catch (error) {
-      next(error);
+      return res.status(500).send({  message : error.message });
     }
   };
 
-  
-      exports.findUsers = async (req, res) => {
-        try {
-          const allUsers = await User.findAll({
-            where: { isVerified: 'true' },
-            order: [['createdAt', 'DESC']],
-          });
-          return res.status(200).json({count: allUsers.length, allUsers });
-        } catch (error) {
-          return res.status(500).send({ message: error });
-        }
-      };
-
-    exports.updateUser = async (req, res, next) => {
-      const id = req.params.id
-      try {
-      
-        const {first_name,
-          last_name,
-         username,
-          phone_number} =
-          req.body;
-        const user = await User.findOne({ where: { id: id } });
-        if (!user) {
-          return res.status(404).json({ message: 'User not found' });
-        }
-        const update_User = await user.update({
-          first_name,
-          last_name,
-         username,
-          phone_number
-        });
-        return res.status(200).json({ update_User });
-      } catch (error) {
-        return res.status(500).send({  message : error.message });
-      }
-    };
-
-  
 
   exports.logOut = async (req, res) => {
     res.clearCookie("access_token");
@@ -375,5 +346,5 @@ exports.verifyEmail = async (req, res, next) => {
   };
   
   
-  
+ 
    
