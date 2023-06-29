@@ -37,14 +37,14 @@ exports.contactUs = async (req, res, next) => {
     }
 
 
-    const contact = new Contact({
+    const user = new Contact({
       firstName,
       lastName,
       email,
       phoneNumber,
       message
     });
-    const new_contact = await contact.save();
+    const new_contact = await user.save();
 
     await new Promise((resolve, reject) => {
       transporter.verify(function (error, success) {

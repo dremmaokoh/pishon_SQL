@@ -8,10 +8,10 @@ module.exports = (sequelize, Sequelize) => {
     },
 
     firstName: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.STRING,
     },
     lastName: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.STRING,
     },
     phoneNumber: {
       type: Sequelize.STRING,
