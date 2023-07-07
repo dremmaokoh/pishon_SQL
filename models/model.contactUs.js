@@ -26,6 +26,9 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
       allowNull: false
     },
+    user_id: {
+      type: Sequelize.INTEGER,
+    } 
 
   }) 
     return Contact;

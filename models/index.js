@@ -26,8 +26,8 @@ db.property.belongsTo(db.user, {
 });
 
 // User-Contact Us 1 to many relationship
-db.user.hasOne(db.contact, {as:'contacts'});
-db.contact.belongsTo(db.user,{foreignKey:"userId",as:"user"});
+db.user.hasMany(db.contact, {as:'contacts'});
+db.contact.belongsTo(db.user,{foreignKey:"user_id",as:"user"});
 
 
 
