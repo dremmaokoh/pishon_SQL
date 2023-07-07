@@ -31,7 +31,4 @@ db.contact.belongsTo(db.user,{foreignKey:"user_id",as:"user"});
 
 
 
-
-
-
 module.exports = db;

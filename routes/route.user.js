@@ -7,9 +7,6 @@ const {
   resetPassword,
   resetPasswordpage,
   updateUser,
-  findUsers,
-  findUser,
-  switchToAdmin,
   logOut,
 } = require("../controllers/controller.user");
 const { isAuth, validateVerified } = require("../middleware/isAuth");

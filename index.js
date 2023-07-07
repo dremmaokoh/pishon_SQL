@@ -12,6 +12,9 @@ const user_router = require("./routes/route.user");
 const auth_router = require("./routes/route.auth");
 const contact_router = require("./routes/route.contactUs.js");
 const admin_router = require("./routes/route.contactUs.js");
+const property_router = require("./routes/routes.property");
+
+
 
 const cookieparser = require("cookie-parser");
 const session = require("express-session");
@@ -60,6 +63,7 @@ server.get("/", (req, res) => {
 server.use("/api", user_router);
 server.use("/api/v1", admin_router);
 server.use("/api/v2", contact_router);
+server.use("/api/v3", property_router);
 server.use("/auth", auth_router);
 
 //Listening to server

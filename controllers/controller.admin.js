@@ -1,6 +1,6 @@
 const db = require("../models/index");
 const User = db.user;
-const Contact = db.contact
+const Contact = db.contact;
 
 
 exports.findUser = async (req, res, next) => {

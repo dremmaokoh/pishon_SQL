@@ -71,7 +71,8 @@ exports.signUp = async (req, res, next) => {
       phone_number,
       password: hashedPassword,
       emailtoken: crypto.randomBytes(64).toString("hex"),
-      isVerified: false,
+      isVerified: 'false',
+      role: 'user'
     });
     const new_user = await user.save();
 

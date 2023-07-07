@@ -36,13 +36,35 @@ exports.validateVerified = async (req, res, next) => {
         message: "Invalid Email"
       });
     }
-    console.log(user.isVerified);
+ //   console.log(user.isVerified);
     if (user.isVerified == "true") {
       next();
     } else {
       return res
         .status(401)
         .json({ error: "Please check your email to verify account" });
+    }
+  } catch (error) {
+    return res.status(409).json({ message: error.message });
+  }
+};
+
+exports.validateRole = async (req, res, next) => {
+  try {
+    const user = await User.findOne({ where : {id: req.user.id}  });
+  
+    if (!user) {
+      return res.status(400).json({
+        message: "User Not Found"
+      });
+    }
+//    console.log(user.isVerified);
+    if (user.role == "admin") {
+      next();
+    } else {
+      return res
+        .status(401)
+        .json({ error: "Unathorized!!!!" });
     }
   } catch (error) {
     return res.status(409).json({ message: error.message });
