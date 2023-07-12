@@ -10,12 +10,12 @@ const {
   //deleteProperty,
  // getTopPropertys
 } = require("../controllers/controller.property");
-const { isAuth, validateVerified, validateRole } = require("../middleware/isAuth");
+const { isAuth,  validateRole } = require("../middleware/isAuth");
 
 router.post(
   "/newProperty",
   isAuth,
-  validateRole,
+ // validateRole,
   upload.single("propertyPicture"),
   addProperty
 );

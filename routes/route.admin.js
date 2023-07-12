@@ -1,13 +1,16 @@
 const router = require("express").Router();
 const {
-  findUsers,
+  findVerifiedUsers,
+  findAllUsers,
   findUser,
   switchToAdmin,
   findEnquiries
 
 } = require("../controllers/controller.admin");
-router.get("/viewProfiles", findUsers);
-router.get("/viewProfile/:id", findUser);
-router.get("/viewEnquiries", findEnquiries);
+const { isAuth} = require("../middleware/isAuth");
+router.get("/viewVerifiedProfiles", isAuth, findVerifiedUsers);
+router.get("/viewProfiles", isAuth,  findAllUsers);
+router.get("/viewProfile/:id",isAuth,  findUser);
+router.get("/viewEnquiries", isAuth,findEnquiries);
 router.post('/switch-to-admin', switchToAdmin);
 module.exports = router;

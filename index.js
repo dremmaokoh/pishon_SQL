@@ -11,7 +11,7 @@ const db = require("./models/index");
 const user_router = require("./routes/route.user");
 const auth_router = require("./routes/route.auth");
 const contact_router = require("./routes/route.contactUs.js");
-const admin_router = require("./routes/route.contactUs.js");
+const admin_router = require("./routes/route.admin");
 const property_router = require("./routes/routes.property");
 
 

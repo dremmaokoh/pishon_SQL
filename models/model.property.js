@@ -62,9 +62,9 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.INTEGER,
       defaultValue: 0
     },
-    propertyType: {
+    amenities: {
       type: Sequelize.ARRAY(Sequelize.STRING),
-      allowNull: false,
+      allowNull: true,
       enumerable: ["wireless_interview", "smart_TV", "hot_tub","air_conditioner","essentials","washing_machine", "swimming_pool" ] ,
     },
     propertyPicture: {
@@ -73,11 +73,8 @@ module.exports = (sequelize, Sequelize) => {
       },
     owner_id: {
         type: Sequelize.INTEGER,
-      },
-    date: {
-      type: Date,
-      defaultValue: Date.now(),
-    },
+      }
+   
 
 }) 
 

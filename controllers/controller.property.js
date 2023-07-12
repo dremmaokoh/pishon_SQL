@@ -5,19 +5,27 @@ const cloudinary = require("../utils/cloudinary");
 
 exports.addProperty = async (req, res, next) => {
   try {
-    const { propertyName, propertyType, offeringAmount, propertyPicture , pricePerShare, location, minimumInvestment,estimatedROI,holdingPeriod, bathroom,bedroom, beds, yearBuilt, averageRevenuePerMonth } =
+    const { propertyName, propertyType, offeringAmount, propertyPicture , amenities, pricePerShare, location, minimumInvestment,estimatedROI,holdingPeriod, bathroom,bedroom, beds, yearBuilt, averageRevenuePerMonth } =
       req.body;
-   // const id = req.user.id;
+
+      // if (!propertyName || ! propertyType || ! propertyPicture || !estimatedROI || !holdingPeriod  ) {
+      //   res.status(400).send({
+      //     message: 'Content can not be empty!',
+      //   });
+      //   return;
+      // }
+
+    const id = req.user.id;
 
     /* Finding the user by the id. */
-    // const checkUser = await User.findOne({ where : {id: id} });
-    // if (!checkUser) {
-    //   return res.status(404).json({ message: "User not found" });
-    // }
+     const checkUser = await User.findOne({ where : {id: id} });
+    if (!checkUser) {
+      return res.status(404).json({ message: "User not found" });
+     }
 
-    // if (checkUser.role !== 'admin') {
-    //   return res.status(404).json({ message: "Unauthorized to sell Property" });
-    // }
+     if (checkUser.role !== 'admin') {
+       return res.status(404).json({ message: "Unauthorized to sell Property" });
+     }
     const result = await cloudinary.uploader.upload(req.file.path);
 
     const new_property = await Property.create({
@@ -34,7 +42,9 @@ exports.addProperty = async (req, res, next) => {
       bedroom,
       beds,
       yearBuilt,
-      averageRevenuePerMonth    
+      averageRevenuePerMonth,
+      amenities,
+      owner_id: req.user.id   
     });
 
     return res.status(201).json(new_property);
